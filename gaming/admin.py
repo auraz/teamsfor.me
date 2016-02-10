@@ -3,13 +3,16 @@ from django.contrib import admin
 from gaming.models import Game, Team, UserTeam, UserRequest
 
 class GameAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'teamsize')
+
 class TeamAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name',)
+
 class UserTeamAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'team')
+
 class UserRequestAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'game', 'start', 'end')
 
 admin.site.register(Game, GameAdmin)
 admin.site.register(Team, TeamAdmin)

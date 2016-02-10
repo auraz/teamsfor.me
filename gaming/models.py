@@ -9,9 +9,15 @@ class Game(models.Model):
     name = models.CharField(blank=False, max_length=255)
     teamsize = models.PositiveIntegerField(blank=False, null=False)
 
+    def __unicode__(self):
+        return self.name + ', ' + unicode(self.teamsize)
+
 class Team(models.Model):
     """Teams"""
     name = models.CharField(blank=False, max_length=100)
+
+    def __unicode__(self):
+        return self.name
 
 class UserTeam(models.Model):
     """Links users and Teams"""
@@ -20,6 +26,9 @@ class UserTeam(models.Model):
         on_delete=models.CASCADE,
     )
     team = models.ForeignKey(Team)
+
+    def __unicode__(self):
+        return self.team + ' ,' + self.user.username
 
 class UserRequest(models.Model):
     """
@@ -35,3 +44,6 @@ class UserRequest(models.Model):
     game = models.ForeignKey(Game)
     start = models.DateTimeField(blank=False, default=timezone.now)
     end = models.DateTimeField(blank=False, default=timezone.now)
+
+    def __unicode__(self):
+        return self.user.username + ' ,' + self.game.name + ' , from: ' + self.start + 'to: ' + self.end
